@@ -1,0 +1,9 @@
+.loginbox{
+    background-color: #221e1e;
+    max-height: 500px;
+    max-width: 400px;
+    min-height: auto;
+    min-width: auto;
+    border-radius: 10px;
+    padding:30px;
+}

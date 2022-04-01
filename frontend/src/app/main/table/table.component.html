@@ -1,0 +1,41 @@
+<div class="box"> 
+  <form [formGroup]="listForm"  class="d-flex justify-content-center">
+    <mat-form-field appearance="fill">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category">
+        <mat-option *ngFor="let i of categories" [value]="i['name']">{{i['name']}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Item</mat-label>
+      <mat-select formControlName="item">
+        <mat-option *ngFor="let i of products" [value]="i['name']">{{i['name']}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Quantity</mat-label>
+      <input formControlName="qty" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Item Price</mat-label>
+      <input formControlName="itemPrice" matInput>
+    </mat-form-field>
+    <mat-form-field  appearance="fill">
+      <mat-label>AddOns</mat-label>
+      <textarea formControlName="addOns" matInput></textarea>
+    </mat-form-field>
+      <button class="m-4" mat-mini-fab color="primary" (click)="AddToList()" aria-label="Example icon button with a menu icon">
+        <mat-icon>add</mat-icon>
+      </button>
+
+   
+  </form>
+   
+</div>
+<div>
+  <ul *ngFor="let i of this.OrderList">
+    <h1 style="color: aliceblue;">{{i.item}}</h1>
+    <h1 style="color: aliceblue;">{{i.itemPrice}}</h1>
+    <h1 style="color: aliceblue;">{{i.category}}</h1>
+  </ul>
+</div>

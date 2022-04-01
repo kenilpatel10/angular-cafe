@@ -1,0 +1,34 @@
+<form class="m-4" [formGroup]="registerForm"  #f="ngForm">
+    <mat-form-field appearance="outline">
+        <mat-label>User Name</mat-label>
+        <input class="color" matInput formControlName="name"placeholder="User Name">
+        <mat-icon  class="color" matSuffix>person</mat-icon>
+        <mat-hint>Hint</mat-hint>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Email Address</mat-label>
+        <input class="color" matInput formControlName="email" type="email" placeholder="Email Address">
+        <mat-icon  class="color" matSuffix>email</mat-icon>
+        <mat-error *ngIf="registerForm.controls['email'].dirty && registerForm.hasError('pattern','email')">  please enter valid email address</mat-error>
+
+      </mat-form-field>
+      <!-- <mat-form-field appearance="outline">
+        <mat-label>Phone Number</mat-label>
+        <input class="color" matInput formControlName="phone" placeholder="Phone Number">
+        <mat-icon  class="color" matSuffix>phone</mat-icon>
+       <mat-error *ngIf="registerForm.controls['phone'].dirty && registerForm.hasError('pattern','phone')">Invalid Input(input should be only 10 numbers)</mat-error>
+    
+       
+      </mat-form-field> -->
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input  class="color" [type]="show ? 'text' : 'password'" formControlName="password" matInput placeholder="Password">
+        <mat-icon class="color" matSuffix *ngIf="this.show" (click)="password()">visibility_on</mat-icon>
+        <mat-icon  class="color" matSuffix *ngIf="!this.show" (click)="password()">visibility_off</mat-icon>
+        <mat-error *ngIf="registerForm.controls['password'].dirty && registerForm.hasError('pattern','password')">  Minimum eight characters, at least one capital letter, one number and one special character</mat-error>
+     
+      </mat-form-field>
+      <div  mat-dialog-action [align]="'end'">
+        <button  mat-raised-button color="primary" (click)="registerUser()">Register</button>
+      </div>
+  </form>

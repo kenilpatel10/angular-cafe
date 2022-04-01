@@ -1,0 +1,12 @@
+.box{
+    background-color: #221e1e;
+    max-height: 300px;
+    max-width: 1500px;
+    min-height: auto;
+    min-width: auto;
+    border-radius: 10px;
+    padding:30px;
+}
+.mat-form-field{
+    margin: 5px;
+}

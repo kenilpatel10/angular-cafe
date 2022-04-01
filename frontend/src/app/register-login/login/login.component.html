@@ -1,0 +1,22 @@
+<div class="m-4" [formGroup]="loginForm">
+    <mat-form-field appearance="outline">
+        <mat-label>Email Address</mat-label>
+        <input class="color"matInput formControlName="email" placeholder="Email Address">
+        <mat-icon class="color" type="email" matSuffix>email</mat-icon>
+        <mat-error *ngIf="loginForm.controls['email'].dirty && loginForm.hasError('pattern','email')">  please enter valid email address</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input  class="color" [type]="show ? 'text' : 'password'" formControlName="password" matInput placeholder="Password">
+        <mat-icon class="color" matSuffix *ngIf="this.show" (click)="password()">visibility_on</mat-icon>
+        <mat-icon  class="color" matSuffix *ngIf="!this.show" (click)="password()">visibility_off</mat-icon>
+        <mat-error *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('pattern','password')">  Minimum eight characters, at least one capital letter, one number and one special character</mat-error>
+     
+      </mat-form-field>
+      <div class="d-flex justify-content-end">
+
+      <button mat-flat-button color="primary" (click)="loginUser()" >Log In</button>
+
+      </div>
+    
+</div>

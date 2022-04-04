@@ -53,6 +53,7 @@ exports.registerUser =catchAsyncError(async(req,res,next)=>{
             email: user.email,
             password:user.password,
             role:user.role,
+            status:user.status,
             token: generateToken(user._id),
           });
     })
@@ -165,13 +166,14 @@ exports.registerUser =catchAsyncError(async(req,res,next)=>{
      })
  })
  //update user role
- exports.updateRole = catchAsyncError(async(req,res,next)=>{
+ exports.updateUser = catchAsyncError(async(req,res,next)=>{
  
      const newUser ={
          name: req.body.name,
          email: req.body.email,
          password: req.body.password,
          role: req.body.role,
+         status: req.body.status
          
      }
      const user = await User.findByIdAndUpdate(req.params.id, newUser, {

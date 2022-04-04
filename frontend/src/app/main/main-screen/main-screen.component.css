@@ -13,5 +13,17 @@
 }
 .example-card {
   max-width: 400px;
+  padding: 10px;
+  
   margin-bottom: 8px;
+}
+.innerCard{
+  border: 1px solid green;
+  padding: 70px;
+  border-radius: 10px;
+}
+.innerCard1{
+  border: 1px solid red;
+  padding: 70px;
+  border-radius: 10px;
 }

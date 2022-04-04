@@ -22,7 +22,7 @@ email: {
   },
   status:{
     type: Boolean,
-    default: true
+    default: false
   },
   role: {
     type: String,

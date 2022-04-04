@@ -1,0 +1,85 @@
+<mat-toolbar color="primary">
+
+    <img style="height: 100px; margin:-15px;" src="../../../assets/img/logo 1.png" alt="logo">
+    <span>KK Cafe & More</span>
+    <span class="example-spacer"></span>
+   
+    <button (click)="logOut()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </mat-toolbar>
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav opened mode="side">
+      <mat-nav-list>
+        <a mat-list-item routerLink="/dashboard" ><mat-icon class="m-2">dashboard</mat-icon>
+            </a>
+        <a mat-list-item   routerLink="/items"><mat-icon class="m-2">list</mat-icon></a>
+        <a mat-list-item   routerLink="/users"><mat-icon class="m-2">person</mat-icon></a>
+        <a mat-list-item   routerLink="/add"><mat-icon class="m-2">add</mat-icon></a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content><div style="height: 90vh;" >
+
+
+        <div class="box justify-content-center"> 
+            <h3 style="text-align: center;">Add Category</h3>
+            <form [formGroup]="categoryForm" align="center">
+              <mat-form-field appearance="fill">
+                <mat-label>Add Category</mat-label>
+                <input formControlName="name" matInput>
+              </mat-form-field>
+                <button class="m-4" (click)="addCategory()" mat-mini-fab color="primary"  aria-label="Example icon button with a menu icon">
+                  <mat-icon>add</mat-icon>
+                </button>
+            </form>
+          </div>
+        <div class="box justify-content-center"> 
+
+            <h3 style="text-align: center;">Add Items</h3>
+            <form [formGroup]="itemForm" align="center">
+                <mat-form-field appearance="fill">
+                    <mat-label>Category</mat-label>
+                    <mat-select formControlName="category">
+                        <mat-option *ngFor="let i of categories" [value]="i['name']">{{i['name']}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Add Item Name</mat-label>
+                <input formControlName="name" matInput>
+              </mat-form-field>
+              
+              <mat-form-field appearance="fill">
+                <mat-label>Item Price</mat-label>
+                <input formControlName="price" matInput>
+              </mat-form-field>
+    
+              <br>
+                <button (click)="addItems()" class="m-4" mat-mini-fab color="primary"  aria-label="Example icon button with a menu icon">
+                  <mat-icon>add</mat-icon>
+                </button>
+            </form>
+           
+          
+        </div>
+        <div class="box justify-content-center"> 
+            <h3 style="text-align: center;">Add Table</h3>
+            <form [formGroup]="tableForm" align="center">
+              <mat-form-field appearance="fill">
+                <mat-label>Add table</mat-label>
+                <input formControlName="name" matInput>
+              </mat-form-field>
+                <button (click)="addTable()" class="m-4" mat-mini-fab color="primary"  aria-label="Example icon button with a menu icon">
+                  <mat-icon>add</mat-icon>
+                </button>
+            </form>
+          </div>
+         
+    </div>
+          
+         
+        
+        
+     </mat-sidenav-content>
+  </mat-sidenav-container>
+
+<div></div>

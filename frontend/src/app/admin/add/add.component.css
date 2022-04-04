@@ -2,7 +2,7 @@
     margin:10px;
     background-color: #221e1e;
     max-height: 600px;
-    max-width: 1500px;
+    width:auto;
     min-height: auto;
     min-width: auto;
     border-radius: 10px;
@@ -10,4 +10,8 @@
 }
 .mat-form-field{
     margin: 5px;
+    width: 80%;
 }
+.example-spacer {
+    flex: 1 1 auto;
+  } 

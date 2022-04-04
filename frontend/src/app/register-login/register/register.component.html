@@ -12,14 +12,6 @@
         <mat-error *ngIf="registerForm.controls['email'].dirty && registerForm.hasError('pattern','email')">  please enter valid email address</mat-error>
 
       </mat-form-field>
-      <!-- <mat-form-field appearance="outline">
-        <mat-label>Phone Number</mat-label>
-        <input class="color" matInput formControlName="phone" placeholder="Phone Number">
-        <mat-icon  class="color" matSuffix>phone</mat-icon>
-       <mat-error *ngIf="registerForm.controls['phone'].dirty && registerForm.hasError('pattern','phone')">Invalid Input(input should be only 10 numbers)</mat-error>
-    
-       
-      </mat-form-field> -->
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
         <input  class="color" [type]="show ? 'text' : 'password'" formControlName="password" matInput placeholder="Password">

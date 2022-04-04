@@ -43,14 +43,19 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.valid) {
 
       this.api.postUser(this.registerForm.value).subscribe({
-        next: () => {
+        next: (res) => {
           this.toast.success({
             detail: 'Success Message',
             summary: 'User Registered Successfully',
             duration: 4000,
           });
-          this.registerForm.reset();
-          this.router.navigate(['']);
+          console.log("status",res.status)
+    
+            this.registerForm.reset();
+            this.router.navigate(['warning']);
+            console.log("if",res.status)
+         
+        
         },
         error: (error: any) => {
           this.toast.error({

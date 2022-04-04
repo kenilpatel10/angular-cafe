@@ -46,16 +46,29 @@ loginForm!: FormGroup;
             summary: `${res.role} Logged In successfully` ,
             duration: 4000,
           });
-          localStorage.setItem ('token', res.token);
-          localStorage.setItem ('name', res.name);
-          localStorage.setItem ('id', res.id);
-          this.loginForm.reset();
-          if(res.role === 'admin'){
-            this.router.navigate(['dashboard'])
+          if(res.status === false){
+            this.toast.error({
+              detail: 'Error Message',
+              summary: "You are not authorized by admin",
+              duration: 4000,
+            });
+            this.router.navigate(['warning'])
           }
-          if(res.role === 'user'){
-            this.router.navigate(['main'])
+          if(res.status === true){
+            console.log("if2",res.status)
+            localStorage.setItem ('token', res.token);
+            localStorage.setItem ('name', res.name);
+            localStorage.setItem ('id', res.id);
+            this.loginForm.reset();
+            if(res.role === 'admin'){
+              this.router.navigate(['admin'])
+            }
+            if(res.role === 'user'){
+              this.router.navigate(['main'])
+            }
           }
+        
+      
          
         },
         error: (error: any) => {

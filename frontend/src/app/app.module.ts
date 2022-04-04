@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {MatTableModule} from '@angular/material/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavComponent } from './navbar/nav/nav.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -28,12 +28,18 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { TableComponent } from './main/table/table.component';
+import {MatListModule} from '@angular/material/list';
+import { NavComponent } from './main/nav/nav.component';
+import { AddComponent } from './admin/add/add.component';
+import { UsersComponent } from './admin/users/users.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { WarningComponent } from './home/warning/warning.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,
     LoginComponent,
     RegisterComponent,
     RegisterLoginComponent,
@@ -43,6 +49,10 @@ import { TableComponent } from './main/table/table.component';
     DashboardComponent,
     AdminScreenComponent,
     TableComponent,
+    NavComponent,
+    AddComponent,
+    UsersComponent,
+    WarningComponent,
 
  
   ],
@@ -57,13 +67,17 @@ import { TableComponent } from './main/table/table.component';
     MatFormFieldModule,
     MatInputModule,
     NgToastModule,
+    MatPaginatorModule,
     HttpClientModule,
     ReactiveFormsModule,
     MatSidenavModule,
+    MatListModule,
     MatExpansionModule,
     MatSelectModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTableModule,
+    MatSlideToggleModule
     
   ],
   providers: [],

@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddComponent } from './admin/add/add.component';
+import { AdminScreenComponent } from './admin/admin-screen/admin-screen.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { UsersComponent } from './admin/users/users.component';
 import { AppComponent } from './app.component';
 import { AboutComponent } from './home/about/about.component';
 import { HomeComponent } from './home/home/home.component';
+import { WarningComponent } from './home/warning/warning.component';
 import { MainScreenComponent } from './main/main-screen/main-screen.component';
 import { TableComponent } from './main/table/table.component';
 import { LoginComponent } from './register-login/login/login.component';
@@ -18,8 +22,10 @@ const routes: Routes = [
   {path:'main', component: MainScreenComponent},
   {path:'dashboard', component: DashboardComponent},
   {path:'table', component: TableComponent},
-
- 
+  {path:'admin', component: AdminScreenComponent},
+  {path:'add', component: AddComponent},
+  {path:'users', component: UsersComponent},
+  {path:'warning', component: WarningComponent},
 ];
 
 @NgModule({

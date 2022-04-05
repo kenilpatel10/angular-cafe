@@ -17,7 +17,6 @@ export class ApiService {
   }
   postLogin(data: any){
     return this.http.post<any>('http://localhost:4000/api/c1/login', data).pipe(catchError(this.errorHandler));
-
   }
   postCategory(data: any){
     return this.http.post<any>('http://localhost:4000/api/c1/category', data).pipe(catchError(this.errorHandler));
@@ -25,18 +24,32 @@ export class ApiService {
   postItems(data: any){
     return this.http.post<any>('http://localhost:4000/api/c1/admin/product/new', data).pipe(catchError(this.errorHandler));
   }
-  postTable(data: any){
-    return this.http.post<any>('http://localhost:4000/api/c1/admin/createTable', data).pipe(catchError(this.errorHandler));
-  }
-  getCategories(){
-    return this.http.get<any>('http://localhost:4000/api/c1/categories');
-  }
   getProducts(){
     return this.http.get<any>('http://localhost:4000/api/c1/products');
+  }
+  deleteProduct(id:any){
+    return this.http.delete<any>(`http://localhost:4000/api/c1/admin/product/${id}`);
+  }
+  updateProduct(id: any, data: any){
+    return this.http.put<any>(`http://localhost:4000/api/c1/admin/product/${id}`, data);
+  }
+  postTable(data: any){
+    return this.http.post<any>('http://localhost:4000/api/c1/admin/createTable', data).pipe(catchError(this.errorHandler));
   }
   getTables(){
     return this.http.get<any>('http://localhost:4000/api/c1/tables');
   }
+  deleteTable(id:any){
+    return this.http.delete<any>(`http://localhost:4000/api/c1/table/${id}`);
+  }
+  getCategories(){
+    return this.http.get<any>('http://localhost:4000/api/c1/categories');
+  }
+  deleteCategory(id:any){
+    return this.http.delete<any>(`http://localhost:4000/api/c1/category/${id}`);
+  }
+
+ 
   getUsers(){
     return this.http.get<any>('http://localhost:4000/api/c1/admin/users');
   }
@@ -49,6 +62,7 @@ export class ApiService {
   deleteUsers(id:any){
     return this.http.delete<any>(`http://localhost:4000/api/c1/admin/user/${id}`);
   }
+
   errorHandler(error: HttpErrorResponse): Observable<any>{
     return throwError(error.error.message || "SERVER ERROR")
   }

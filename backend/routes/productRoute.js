@@ -9,8 +9,8 @@ router.route("/products").get(getAllProducts);
 router.route("/admin/products").get(isAuthenticatedUser, authorizeRoles("admin"),getAdminProducts);
 
 router.route("/admin/product/new").post(createProduct);
-router.route("/admin/product/:id").put(isAuthenticatedUser, authorizeRoles("admin"),updateProduct);
-router.route("/admin/product/:id").delete(isAuthenticatedUser, authorizeRoles("admin"),deleteProduct);
+router.route("/admin/product/:id").put(updateProduct);
+router.route("/admin/product/:id").delete(deleteProduct);
 router.route("/product/:id").get(getProductDetail);
 
 

@@ -12,14 +12,14 @@ import { ApiService } from 'src/app/services/api.service';
 export class AddComponent implements OnInit {
 categoryForm!: FormGroup;
 tableForm!: FormGroup;
+
 itemForm!: FormGroup;
 categories: any = [];
   constructor(private router: Router,private toast: NgToastService,private formBuilder: FormBuilder, private api : ApiService) { }
 
   ngOnInit(): void {
-    this.api.getCategories().subscribe((res) => {
+  this.api.getCategories().subscribe((res) => {
       this.categories = res.category;
-      // console.log( this.categories)
     });
 this.categoryForm = this.formBuilder.group({
   name:['']
@@ -34,6 +34,7 @@ this.itemForm = this.formBuilder.group({
 
 })
   }
+  
   logOut(){
 
     localStorage.clear();
@@ -54,6 +55,9 @@ if(this.categoryForm.valid){
         duration: 4000,
       });
       this.categoryForm.reset();
+      this.api.getCategories().subscribe((res) => {
+        this.categories = res.category;
+      });
     },
     error: (error: any) => {
       this.toast.error({
@@ -75,6 +79,7 @@ addItems(){
           duration: 4000,
         });
         this.itemForm.reset();
+
       },
       error: (error: any) => {
         this.toast.error({

@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>Update Item</h1>
+
+
+<div mat-dialog-content>  <form [formGroup]="itemForm" align="center">
+    <mat-form-field appearance="fill">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category">
+            <mat-option *ngFor="let i of categories" [value]="i['name']">{{i['name']}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Add Item Name</mat-label>
+    <input formControlName="name" matInput>
+  </mat-form-field>
+  
+  <mat-form-field appearance="fill">
+    <mat-label>Item Price</mat-label>
+    <input formControlName="price" matInput>
+  </mat-form-field>
+
+  <br>
+    <button (click)="updateItem()" class="m-4" mat-mini-fab color="primary"  aria-label="Example icon button with a menu icon">
+      <mat-icon>edit</mat-icon>
+    </button>
+</form></div>
+<div mat-dialog-actions class="justify-content-end">
+  <button mat-button mat-dialog-close>Close</button>
+</div>

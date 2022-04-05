@@ -29,15 +29,14 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {
     this.localItems = localStorage.getItem('order');
     this.OrderList = JSON.parse(this.localItems);
-    console.log('list', this.OrderList);
+
     this.api.getCategories().subscribe((res) => {
       this.categories = res.category;
-      // console.log( this.categories)
     });
     this.api.getProducts().subscribe((res) => {
       this.products = res.products;
-      // console.log( this.products)
     });
+    
     this.listForm = this.formBuilder.group({
       category: [''],
       item: [''],
@@ -51,6 +50,7 @@ export class TableComponent implements OnInit {
   add: any = [];
   add1: any = [];
   AddToList() {
+
     this.add.push(this.listForm.value);
     localStorage.setItem('order', JSON.stringify(this.add));
     this.localItems = localStorage.getItem('order');

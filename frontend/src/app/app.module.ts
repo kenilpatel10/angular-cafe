@@ -35,6 +35,12 @@ import { UsersComponent } from './admin/users/users.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { WarningComponent } from './home/warning/warning.component';
+import { AllItemsComponent } from './admin/all-items/all-items.component';
+import { UpdateItemComponent } from './admin/update-item/update-item.component';
+import {MatDialogModule} from '@angular/material/dialog';
+
+
+
 
 
 @NgModule({
@@ -53,8 +59,9 @@ import { WarningComponent } from './home/warning/warning.component';
     AddComponent,
     UsersComponent,
     WarningComponent,
-
- 
+    AllItemsComponent,
+    UpdateItemComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -77,7 +84,9 @@ import { WarningComponent } from './home/warning/warning.component';
     MatCardModule,
     MatGridListModule,
     MatTableModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatDialogModule
+
     
   ],
   providers: [],

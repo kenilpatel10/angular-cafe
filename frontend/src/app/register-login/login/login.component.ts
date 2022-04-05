@@ -61,7 +61,7 @@ loginForm!: FormGroup;
             localStorage.setItem ('id', res.id);
             this.loginForm.reset();
             if(res.role === 'admin'){
-              this.router.navigate(['admin'])
+              this.router.navigate(['dashboard'])
             }
             if(res.role === 'user'){
               this.router.navigate(['main'])

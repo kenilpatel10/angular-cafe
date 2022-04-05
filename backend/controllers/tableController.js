@@ -53,3 +53,20 @@ exports.createTable = catchAsyncError(async (req, res, next) => {
           table,
         });
       });
+      exports.deleteTable = catchAsyncError(async (req, res) => {
+    
+        const table = await Table.findById(req.params.id);
+        if (!table) {
+                return res.status(500).json({
+                  success: false,
+                  message: "table not found",
+                });
+              }
+      await table.remove()
+          res.status(200).json({
+            success: true,
+            message: "deleted successfully",
+          
+        
+          });
+        });

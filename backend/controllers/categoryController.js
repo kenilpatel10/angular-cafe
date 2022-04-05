@@ -27,3 +27,19 @@ exports.createCategory = catchAsyncError(async (req, res, next) => {
   
     });
   });
+
+  exports.deleteCategory = catchAsyncError(async (req, res) => {
+    
+    const category = await Category.findById(req.params.id);
+    if (!category) {
+      return res.status(500).json({
+        success: false,
+        message: "table not found",
+      });
+    }
+      await category.remove();
+      res.status(200).json({
+        success: true,
+        message: "deleted successfully",
+      });
+    });

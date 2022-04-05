@@ -5,7 +5,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ApiService } from 'src/app/services/api.service';
-import { ThisReceiver } from '@angular/compiler';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',

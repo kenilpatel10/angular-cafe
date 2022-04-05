@@ -24,8 +24,12 @@ tables:any;
 
 
 onTableClick(id: any){
+//  let i =0 ;
+//  i += 1
   this.api.getSingleTable(id).subscribe({
     next:(res)=>{
+  // const order1= JSON.stringify(localStorage.getItem("order"));
+      // localStorage.setItem(`orders${i}`,order1)
       localStorage.setItem("tableId",res.table._id)
       localStorage.setItem("tableName",res.table.name)
       this.router.navigate(['table'])

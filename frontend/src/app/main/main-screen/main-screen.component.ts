@@ -10,13 +10,16 @@ import { Router } from '@angular/router';
 })
 export class MainScreenComponent implements OnInit {
   constructor(private api: ApiService,private formBuilder: FormBuilder,private toast : NgToastService,private router: Router) { }
-
+localItems: any
 tables:any;
   ngOnInit(): void {
    
+    this.localItems = localStorage.getItem('order');
+   
     this.api.getTables().subscribe((res)=>{
+
       this.tables= res.tables;
-      console.log( this.tables)
+      
     })
   
 
@@ -24,14 +27,13 @@ tables:any;
 
 
 onTableClick(id: any){
-//  let i =0 ;
-//  i += 1
   this.api.getSingleTable(id).subscribe({
     next:(res)=>{
   // const order1= JSON.stringify(localStorage.getItem("order"));
       // localStorage.setItem(`orders${i}`,order1)
       localStorage.setItem("tableId",res.table._id)
       localStorage.setItem("tableName",res.table.name)
+
       this.router.navigate(['table'])
     }
   })

@@ -32,6 +32,11 @@ default:true
     ref: "User",
     // required: true,
   },
+  categoryId: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Category",
+    // required: true,
+  },
 });
 
 module.exports = mongoose.model("Product", productSchema);

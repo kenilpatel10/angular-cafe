@@ -27,6 +27,9 @@ export class ApiService {
   getProducts(){
     return this.http.get<any>('http://localhost:4000/api/c1/products');
   }
+  getSingleProduct(id: any){
+    return this.http.get<any>(`http://localhost:4000/api/c1/product/${id}`);
+  }
   deleteProduct(id:any){
     return this.http.delete<any>(`http://localhost:4000/api/c1/admin/product/${id}`);
   }

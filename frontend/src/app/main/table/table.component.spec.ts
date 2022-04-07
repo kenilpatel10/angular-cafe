@@ -23,3 +23,16 @@ describe('TableComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+// deleteOrder( id: any){
+//   this.localItems =localStorage.getItem('order')
+//   let data=  JSON.parse(this.localItems)
+//   console.log("items",data[indexOf()])
+//   console.log("id",id)
+//   const index = data.indexOf()
+
+//   data.splice(index, 1)
+//   console.log("i",index)
+//   if(id === this.localItems.id){
+//     console.log("remove")
+//   }
+// }

@@ -54,7 +54,7 @@ export class AllItemsComponent implements OnInit {
     this.api.getProducts().subscribe({
       next: (res) => {
         this.AllItems = res.products;
-        console.log('items', res);
+ 
         this.dataSource = new MatTableDataSource(res.products);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

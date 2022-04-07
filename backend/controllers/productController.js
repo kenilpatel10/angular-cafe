@@ -21,9 +21,9 @@ exports.getAllProducts = catchAsyncError(async (req, res) => {
   
   const resultPerPage = 6
   const productCount = await Product.countDocuments();
-  const apiFeature= new ApiFeatures(Product.find(),req.query).search().filter().pagination(resultPerPage);
+  // const apiFeature= new ApiFeatures(Product.find(),req.query).search().filter().pagination(resultPerPage);
 
- const  products = await apiFeature.query;
+ const  products = await Product.find();
 
   res.status(200).json({
     success: true,
@@ -113,3 +113,13 @@ exports.deleteProduct = catchAsyncError( async (req, res, next) => {
 
 // product review (do it letter 3:48:39)
 
+exports.getByCategoryProduct = catchAsyncError( async (req, res, next) => {
+  const product = await Product.find(req.body.category);
+  res.status(200).json({
+    success: true,
+    message: "successfully",
+    product,
+    
+  });
+console.log("cat", product)
+});

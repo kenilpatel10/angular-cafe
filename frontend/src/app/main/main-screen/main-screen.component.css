@@ -12,18 +12,18 @@
   margin-left: 8px;
 }
 .example-card {
-  max-width: 400px;
+  width: 350px;
+  height: 200px;
   padding: 10px;
-  
-  margin-bottom: 8px;
-}
-.innerCard{
-  border: 1px solid green;
-  padding: 70px;
   border-radius: 10px;
+  margin: 8px;
+  text-align: center;
+  outline: solid 1px #fc0061;
+  outline-offset:-10px; 
+
 }
-.innerCard1{
+/* .innerCard1{
   border: 1px solid red;
   padding: 70px;
   border-radius: 10px;
-}
+} */

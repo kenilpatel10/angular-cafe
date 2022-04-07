@@ -5,39 +5,90 @@
     <mat-form-field appearance="fill">
       <mat-label>Category</mat-label>
       <mat-select formControlName="category">
-        <mat-option *ngFor="let i of categories" [value]="i['name']">{{i['name']}}</mat-option>
+        <mat-option  *ngFor="let i of categories" (click)="setCategory(i)" [value]="i['name']">{{i['name']}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Item</mat-label>
       <mat-select formControlName="item">
-        <mat-option *ngFor="let i of products" [value]="i['name']">{{i['name']}}</mat-option>
+        <mat-option  *ngFor="let i of ProductList" (click)="onProductClick(i._id)" [value]="i['name']">{{i['name']}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Quantity</mat-label>
-      <input style="color: aliceblue;" formControlName="qty" matInput>
+      <input  style="color: aliceblue;" formControlName="qty" matInput>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Item Price</mat-label>
-      <input  style="color: aliceblue;" formControlName="itemPrice" matInput>
+      <input   style="color: aliceblue;" formControlName="itemPrice" matInput>
     </mat-form-field>
     <mat-form-field  appearance="fill">
       <mat-label>AddOns</mat-label>
       <textarea  style="color: aliceblue;" formControlName="addOns" matInput></textarea>
     </mat-form-field>
-      <button class="m-4" mat-mini-fab color="primary" (click)="AddToList()" aria-label="Example icon button with a menu icon">
-        <mat-icon>add</mat-icon>
-      </button>
+    <button *ngIf="this.updateOn === false" class="m-4" mat-mini-fab color="primary" (click)="AddToList(OrderList1)" aria-label="Example icon button with a menu icon">
+      <mat-icon>add</mat-icon>
+    </button>
+    <button *ngIf="this.updateOn === true" class="m-4" mat-mini-fab color="primary"  (click)="UpdateToList(OrderList1.id)" aria-label="Example icon button with a menu icon">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <div class="d-flex justify-content-end">
+      <b style="color: aliceblue;">{{this.OrderList1.length}}</b>
+    </div>
 
-   
   </form>
    
 </div>
-<div>
-  <ul *ngFor="let i of this.OrderList">
-    <h1 style="color: aliceblue;">{{i.item}}</h1>
-    <h1 style="color: aliceblue;">{{i.itemPrice}}</h1>
-    <h1 style="color: aliceblue;">{{i.category}}</h1>
-  </ul>
+
+
+
+<div class="mat-elevation-z8 example-container m-3">
+  <table  mat-table [dataSource]="dataSource"  matSort>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>  Name </th>
+      <td mat-cell *matCellDef="let i">{{i.item}} </td>
+      <td mat-footer-cell *matFooterCellDef> Total </td>
+    </ng-container>
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>  Price </th>
+      <td mat-cell *matCellDef="let i"> {{i.itemPrice * i.qty}}</td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container>
+    <ng-container matColumnDef="qty">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</th>
+      <td mat-cell *matCellDef="let i"> {{i.qty}}</td>
+      <!-- <td mat-cell *matCellDef="let i"> <button mat-button (click)=" increaseQuantity(i.id, i.qty)">+</button ><input style="width: 30px;" readonly  [value]="i.qty"><button (click)="decreaseQuantity(i.id, i.qty)" mat-button>-</button></td> -->
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container>
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>  category </th>
+      <td mat-cell *matCellDef="let i"> {{i.category}} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+      <td mat-cell *matCellDef="let i">  
+        <button  (click)="updateOrderList(i)" mat-icon-button color="accent" ><mat-icon>edit</mat-icon></button>
+        <button  (click)="deleteOrder(i.id)" mat-icon-button color="warn" ><mat-icon>delete</mat-icon></button> 
+        
+       </td>
+        <td mat-footer-cell *matFooterCellDef>  
+          {{getTotalCost() | currency:"INR":"₹"}}
+           <!-- {{i.reduce((acc, i) => acc + i.quantity * i.price, 0)}} </td> -->
+      </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedData sticky: true"></tr>
+    <tr mat-row *matRowDef="let i; columns: displayedData;"></tr>
+    <tr mat-footer-row *matFooterRowDef="displayedData; sticky: true"></tr>
+
+ 
+  </table>
+
+ 
+</div>
+<div class="d-flex justify-content-center">
+  <button class="m"mat-raised-button  color="primary"   (click)="sendOrder()" aria-label="Example icon button with a menu icon">
+    <mat-icon>send</mat-icon>
+    Send
+  </button>
 </div>

@@ -55,7 +55,6 @@ loginForm!: FormGroup;
             this.router.navigate(['warning'])
           }
           if(res.status === true){
-            console.log("if2",res.status)
             localStorage.setItem ('token', res.token);
             localStorage.setItem ('name', res.name);
             localStorage.setItem ('id', res.id);

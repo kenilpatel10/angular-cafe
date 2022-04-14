@@ -50,18 +50,18 @@ export class UsersComponent implements OnInit {
       
           }
   deleteUser(id: any){
+    if(window.confirm("Are you Sure, you want to delete this??")){
     this.api.deleteUsers(id).subscribe({
       next: (res) => {
-        if(window.confirm("Are you Sure, you want to delete this??")){
+       
           this.toast.success({detail: "Success Message", summary:"User Deleted Successfully", duration:4000});
           this.getAllUsers();
-        }
-  
-      },
+        },
       error: () => {
         this.toast.error({detail: "Error Message", summary:"Error While Deleting Issue", duration:4000})
       },
     });
+  }
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

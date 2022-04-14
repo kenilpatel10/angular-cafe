@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 config: any =sessionStorage.getItem('token')
-
+api:any="http://localhost:4000/"
   constructor(private http: HttpClient) {
 
    }
@@ -22,7 +22,7 @@ config: any =sessionStorage.getItem('token')
     return this.http.get<any>('http://localhost:4000/api/c1/admin/bill');
   }
   updateBill(id: any, data: any){
-    return this.http.put<any>(`http://localhost:4000/api/c1//admin/bill/${id}`, data);
+    return this.http.put<any>(`http://localhost:4000/api/c1/admin/bill/${id}`, data);
   }
   deleteBill(id:any){
     return this.http.delete<any>(`http://localhost:4000/api/c1/admin/bill/${id}`);
@@ -85,7 +85,18 @@ config: any =sessionStorage.getItem('token')
   deleteUsers(id:any){
     return this.http.delete<any>(`http://localhost:4000/api/c1/admin/user/${id}`);
   }
-
+  postOrder(data: any){
+    return this.http.post<any>('http://localhost:4000/api/c1/createorder', data).pipe(catchError(this.errorHandler));
+  }
+  getOrders(){
+    return this.http.get<any>('http://localhost:4000/api/c1/admin/orders');
+  }
+  updateOrder(id: any, data: any){
+    return this.http.put<any>(`http://localhost:4000/api/c1/admin/order/${id}`, data);
+  }
+  deleteOrder(id:any){
+    return this.http.delete<any>(`http://localhost:4000/api/c1/admin/order/${id}`);
+  }
   errorHandler(error: HttpErrorResponse): Observable<any>{
     return throwError(error.error.message || "SERVER ERROR")
   }

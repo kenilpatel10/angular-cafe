@@ -1,4 +1,4 @@
-<form class="m-4" [formGroup]="registerForm"  #f="ngForm">
+<form class="m-4" [formGroup]="registerForm"   (ngSubmit)="registerUser()">
     <mat-form-field appearance="outline">
         <mat-label>User Name</mat-label>
         <input class="color" matInput formControlName="name"placeholder="User Name">

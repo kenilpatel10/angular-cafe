@@ -1,36 +1,49 @@
 <app-nav></app-nav>
 
 <div class="box"> 
-
+ 
   <form [formGroup]="listForm" align="center" class="flex justify-content-center">
+    <h4 style="color: antiquewhite; margin: -8px;">{{this.tableName}}</h4>
     <mat-form-field appearance="fill">
-      <mat-label>Category</mat-label>
+      <mat-label>Category </mat-label>
+      <div class="d-flex justify-content-center">
+        <mat-spinner class="spinner" [diameter]="20" *ngIf="loaderService.isLoading | async"></mat-spinner>
+      </div>
       <mat-select formControlName="category">
         <mat-option  *ngFor="let i of categories" (click)="setCategory(i)" [value]="i['name']">{{i['name']}}</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Item</mat-label>
+    <mat-form-field appearance="fill" >
+      <mat-label >Item</mat-label>
+      <div class="d-flex justify-content-center">
+        <mat-spinner class="spinner" [diameter]="20" *ngIf="loaderService.isLoading | async"></mat-spinner>
+      </div>
       <mat-select formControlName="item">
         <mat-option  *ngFor="let i of ProductList" (click)="onProductClick(i._id)" [value]="i['name']">{{i['name']}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Quantity</mat-label>
+      <div class="d-flex justify-content-center">
+        <mat-spinner class="spinner" [diameter]="20" *ngIf="loaderService.isLoading | async"></mat-spinner>
+      </div>
       <input  style="color: aliceblue;" formControlName="qty" matInput>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Item Price</mat-label>
-      <input   style="color: aliceblue;" formControlName="itemPrice" matInput>
+      <div class="d-flex justify-content-center">
+        <mat-spinner class="spinner" [diameter]="20" *ngIf="loaderService.isLoading | async"></mat-spinner>
+      </div>
+      <input readonly  style="color: aliceblue;" formControlName="itemPrice" matInput>
     </mat-form-field>
     <mat-form-field  appearance="fill">
       <mat-label>AddOns</mat-label>
       <textarea  style="color: aliceblue;" formControlName="addOns" matInput></textarea>
     </mat-form-field>
-    <button *ngIf="this.updateOn === false" class="m-4" mat-mini-fab color="primary" (click)="AddToList(OrderList1)" aria-label="Example icon button with a menu icon">
+    <button *ngIf="this.updateOn === false" class="m-4" mat-mini-fab color="primary" (click)="AddToList()" aria-label="Example icon button with a menu icon">
       <mat-icon>add</mat-icon>
     </button>
-    <button *ngIf="this.updateOn === true" class="m-4" mat-mini-fab color="primary"  (click)="UpdateToList(OrderList1.id)" aria-label="Example icon button with a menu icon">
+    <button *ngIf="this.updateOn === true" class="m-4" mat-mini-fab color="primary"  (click)="UpdateToList(this.listForm.value._id)" aria-label="Example icon button with a menu icon">
       <mat-icon>edit</mat-icon>
     </button>
 
@@ -42,29 +55,29 @@
    
 </div>
 
-<mat-spinner class="spinner" *ngIf="!categories"></mat-spinner>
+
 
 <div class="mat-elevation-z8 example-container m-3">
   <div  style="color: aliceblue; opacity: 0.7;margin: 100px;" *ngIf="this.OrderList1.length <= 0"class="d-flex justify-content-center">
   <!-- <mat-icon>add</mat-icon>  <h1>Add Orders </h1> -->
 
-
+  
   <h4>(No orders please add order)</h4>
   </div>
   <table  mat-table [dataSource]="dataSource"  *ngIf="this.OrderList1.length > 0" matSort>
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>  Name </th>
-      <td mat-cell *matCellDef="let i">{{i.item}}<p *ngIf="i.addOns">-{{i.addOns}}</p> </td>
+      <td mat-cell *matCellDef="let i">{{i['item']}}<p *ngIf="i.addOns">-{{i['addOns']}}</p> </td>
       <td mat-footer-cell *matFooterCellDef> Total </td>
     </ng-container>
     <ng-container matColumnDef="price"> 
       <th mat-header-cell *matHeaderCellDef mat-sort-header>  Price </th>
-      <td mat-cell *matCellDef="let i"> {{i.itemPrice * i.qty}}</td>
+      <td mat-cell *matCellDef="let i"> {{i['itemPrice'] * i['qty']}}</td>
       <td mat-footer-cell *matFooterCellDef>  </td>
     </ng-container>
     <ng-container matColumnDef="qty">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</th>
-      <td mat-cell *matCellDef="let i"> {{i.qty}}</td>
+      <td mat-cell *matCellDef="let i"> {{i['qty']}}</td>
       <!-- <td mat-cell *matCellDef="let i"> <button mat-button (click)=" increaseQuantity(i.id, i.qty)">+</button ><input style="width: 30px;" readonly  [value]="i.qty"><button (click)="decreaseQuantity(i.id, i.qty)" mat-button>-</button></td> -->
       <td mat-footer-cell *matFooterCellDef>  </td>
     </ng-container>
@@ -78,7 +91,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
       <td mat-cell *matCellDef="let i">  
         <button  (click)="updateOrderList(i)" mat-icon-button color="accent" ><mat-icon>edit</mat-icon></button>
-        <button  (click)="deleteOrder(i.id)" mat-icon-button color="warn" ><mat-icon>delete</mat-icon></button> 
+        <button  (click)="deleteOrder(i._id)" mat-icon-button color="warn" ><mat-icon>delete</mat-icon></button> 
         
        </td>
         <td mat-footer-cell *matFooterCellDef>  
@@ -88,8 +101,6 @@
     <tr mat-header-row *matHeaderRowDef="displayedData sticky: true"></tr>
     <tr mat-row *matRowDef="let i; columns: displayedData;"></tr>
     <tr mat-footer-row *matFooterRowDef="displayedData; sticky: true"></tr>
-
- 
   </table>
 
  

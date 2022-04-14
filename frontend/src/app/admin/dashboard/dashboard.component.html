@@ -12,7 +12,7 @@
   
   </mat-toolbar>
   <mat-sidenav-container>
-    <mat-spinner class="spinner" *ngIf="loaderService.isLoading | async"></mat-spinner>
+  
     <mat-sidenav #sidenav opened mode="side">
       <mat-nav-list>
         <a mat-list-item routerLink="/dashboard" ><mat-icon >dashboard</mat-icon>
@@ -29,7 +29,7 @@
   <div class="card">
     <mat-card >
       <mat-card-title-group > 
-        <mat-card-title>₹{{this.totalSales}}</mat-card-title>
+        <mat-card-title>₹{{this.totalSales}}  <mat-spinner [diameter]="20" class="spinner" *ngIf="!this.bills"></mat-spinner></mat-card-title>
         <mat-card-subtitle>                <b >Sales</b></mat-card-subtitle>
         <mat-icon class="icons">poll</mat-icon>
       </mat-card-title-group>
@@ -40,8 +40,8 @@
 <div  class="card"> 
 <mat-card >
 <mat-card-title-group>
-<mat-card-title>{{this.itemscount}}</mat-card-title>
-<mat-card-subtitle>Items</mat-card-subtitle>
+<mat-card-title>{{this.itemscount}}  <mat-spinner class="spinner" [diameter]="20" *ngIf="!this.bills"></mat-spinner></mat-card-title>
+<mat-card-subtitle><b>Items</b></mat-card-subtitle>
 <mat-icon class="icons">list</mat-icon>
 </mat-card-title-group>
 <mat-card-content>
@@ -52,8 +52,8 @@
 <div  class="card">
 <mat-card >
 <mat-card-title-group>
-  <mat-card-title>{{this.userscount}}</mat-card-title>
-  <mat-card-subtitle>Employes</mat-card-subtitle>
+  <mat-card-title>{{this.userscount}}  <mat-spinner [diameter]="20" class="spinner" *ngIf="!this.bills"></mat-spinner></mat-card-title>
+  <mat-card-subtitle><b>Employes</b></mat-card-subtitle>
   <mat-icon class="icons">peoples</mat-icon>
 </mat-card-title-group>
 <mat-card-content>

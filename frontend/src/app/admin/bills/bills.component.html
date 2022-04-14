@@ -32,7 +32,7 @@
     <table mat-table [dataSource]="dataSource" matSort>
   
       <ng-container matColumnDef="customerName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>CustomerName </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>customerName </th>
         <td mat-cell *matCellDef="let i"> {{i['customerName']}} </td>
       </ng-container>
       <ng-container matColumnDef="phone">
@@ -43,7 +43,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Created At </th>
           <td mat-cell *matCellDef="let i"> 
    
- {{i['createdAt'] | date:'short'}}
+           {{i['createdAt'] | date:'short'}}
 
 </td>
         </ng-container>

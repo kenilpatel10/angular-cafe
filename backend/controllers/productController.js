@@ -25,7 +25,7 @@ exports.getAllProducts = catchAsyncError(async (req, res) => {
   // const apiFeature= new ApiFeatures(Product.find(),req.query).search().filter().pagination(resultPerPage);
 
  const  products = await Product.find();
-setTimeout(() => {
+// setTimeout(() => {
   res.status(200).json({
     success: true,
     products,
@@ -33,7 +33,7 @@ setTimeout(() => {
     resultPerPage,
 
   });
-}, 1000);
+// }, 1000);
 
 
 });

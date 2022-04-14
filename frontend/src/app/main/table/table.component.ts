@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDetailComponent } from '../user-detail/user-detail.component';
+import { LoaderService } from 'src/app/services/loader.service';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -14,6 +15,7 @@ import { UserDetailComponent } from '../user-detail/user-detail.component';
 })
 export class TableComponent implements OnInit {
   listForm!: FormGroup;
+  tableName:any= localStorage.getItem('tableName')
   categories: any = [];
   OrderList: any = [];
   localItems: any;
@@ -26,6 +28,7 @@ export class TableComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   validate: boolean = true;
   constructor(
+    public loaderService: LoaderService,
     private api: ApiService,
     private formBuilder: FormBuilder,
     private toast: NgToastService,
@@ -34,21 +37,18 @@ export class TableComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.localItems = localStorage.getItem('order');
+   
   
-    if (this.localItems !== null) {
-      this.OrderList = JSON.parse(this.localItems);
-      this.OrderList1 = this.OrderList.filter((i: any) => {
-        return i.tableName == localStorage.getItem('tableName');
-      });
-    }
+ 
+  this.getOrderList();
+      
     this.api.getCategories().subscribe((res) => {
       this.categories = res.category;
-    });
-    console.log("cat",this.categories)
+  });
     this.api.getProducts().subscribe((res) => {
       this.products = res.products;
       this.ProductList = this.products.filter((i: any) => {
+        
         return i.category === localStorage.getItem('category');
       });
     });
@@ -69,35 +69,63 @@ export class TableComponent implements OnInit {
   }
 
   add: any = [];
-  AddToList(name: any) {
+  AddToList() {
     if (this.listForm.valid) {
-         let add = JSON.parse(this.localItems) || [];
       let exist = false;
-      for(let x of this.OrderList1){
-        if(this.listForm.value.item === x.item){
-          alert("Item Already Exists")
-          exist= true
-          break;
-        }}
-      console.log(this.listForm.value.item);
-      console.log(this.OrderList1);
    
-if(!exist){
+            for(let x of this.OrderList1){
+              if(this.listForm.value.item === x.item){
+                alert("Item Already Exists")
+                exist= true
+                break;
+              }}
+              if(!exist){
+                this.api.postOrder(this.listForm.value).subscribe({
+                  next:(res)=>{
+                      this.toast.success({
+                      detail: 'Success Message',
+                      summary: 'Order Added Successfully',
+                      duration: 4000,
+                    });
+                    console.log("list of data",this.OrderList)
+                  },error:()=> {
+                    this.toast.error({
+                      detail: 'Error Message',
+                      summary: 'Error While Adding Order',
+                      duration: 4000,
+                    });
+                  }
+                })
+              }
 
-  add.push(this.listForm.value);
-  localStorage.setItem('order', JSON.stringify(add));
-  this.toast.success({
-    detail: 'Success Message',
-    summary: 'Order Added Successfully',
-    duration: 4000,
-  });
+
+
+
+    }
+//          let add = JSON.parse(this.localItems) || [];
+//       let exist = false;
+//       for(let x of this.OrderList1){
+//         if(this.listForm.value.item === x.item){
+//           alert("Item Already Exists")
+//           exist= true
+//           break;
+//         }}
+//       console.log(this.listForm.value.item);
+//       console.log(this.OrderList1);
+   
+// if(!exist){
+
+//   add.push(this.listForm.value);
+//   localStorage.setItem('order', JSON.stringify(add));
+//   this.toast.success({
+//     detail: 'Success Message',
+//     summary: 'Order Added Successfully',
+//     duration: 4000,
+//   });
 
 }
      
-this.getOrderList();  
-    
-    }
-  }
+
   clearList() {
 
       console.log(this.OrderList)
@@ -117,16 +145,34 @@ this.getOrderList();
   }
   UpdateToList(id: any) {
     this.updateOn = false;
+console.log(this.listForm.value._id)
     if (this.listForm.valid) {
-      const old = JSON.parse(this.localItems);
-      old.splice(old.findIndex((a: any) => a.id === id));
-      old.push(this.listForm.value);
-      localStorage.setItem('order', JSON.stringify(old));
-      this.toast.success({
-        detail: 'Success Message',
-        summary: 'Order Updated Successfully',
-        duration: 4000,
-      });
+      this.api.updateOrder(id,this.listForm.value).subscribe({
+        next:(res)=>{
+          console.log(res)
+          this.toast.success({
+            detail: 'Success Message',
+            summary: 'Updated Successfully',
+            duration: 4000,
+          });  
+        } ,
+        error: () => {
+          this.toast.error({
+            detail: 'Error Message',
+            summary: 'Error While Updating ',
+            duration: 4000,
+          });
+        },
+      })
+      // const old = JSON.parse(this.localItems);
+      // old.splice(old.findIndex((a: any) => a.id === id));
+      // old.push(this.listForm.value);
+      // localStorage.setItem('order', JSON.stringify(old));
+      // this.toast.success({
+      //   detail: 'Success Message',
+      //   summary: 'Order Updated Successfully',
+      //   duration: 4000,
+      // });
       this.getOrderList();
     }
   }
@@ -144,17 +190,6 @@ this.getOrderList();
       },
     });
   }
-  increaseQuantity(id: any, quantity: any) {
-    let newQty = quantity + 1;
-    if (quantity <= 5) {
-      // this.listForm.controls['qty'].setValue(newQty);
-    }
-  }
-
-  decreaseQuantity(id: any, quantity: any) {
-    let newQty = quantity - 1;
-    if (1 >= quantity) return console.log('dec', newQty);
-  }
   setCategory(cat: any) {
     console.log(cat);
     localStorage.setItem('category', cat.name);
@@ -170,13 +205,19 @@ this.getOrderList();
     });
   }
   getOrderList() {
-    this.localItems = localStorage.getItem('order');
-    this.OrderList = JSON.parse(this.localItems);
-    this.OrderList1 = this.OrderList.filter((i: any) => {
-      return i.tableName == localStorage.getItem('tableName');
-    });
-    this.dataSource = new MatTableDataSource(this.OrderList1);
-    this.dataSource.sort = this.sort;
+    this.api.getOrders().subscribe({
+      next: (res) => {
+
+        this.OrderList= res.orders
+        this.OrderList1 = this.OrderList.filter((i: any) => {
+          return i.tableName == localStorage.getItem('tableName');
+        });
+        console.log("get data", this.OrderList1)
+        this.dataSource = new MatTableDataSource(this.OrderList1);
+        this.dataSource.sort = this.sort;
+      }
+    })
+  
   }
   updateOrderList(data: any) {
     this.updateOn = true;
@@ -188,15 +229,25 @@ this.getOrderList();
 
   deleteOrder(id: any) {
     if (window.confirm('are you sure ??')) {
-      let data = JSON.parse(this.localItems);
-      const index = data.indexOf();
-      data.splice(index, 1);
-      localStorage.setItem('order', JSON.stringify(data));
-      this.getOrderList();
-      this.toast.success({
-        detail: 'Success Message',
-        summary: 'Order Deleted Successfully',
-        duration: 4000,
+      this.api.deleteOrder(id).subscribe({
+        next: (res) => {
+         
+            this.toast.success({
+              detail: 'Success Message',
+              summary: 'Deleted Successfully',
+              duration: 4000,
+            });
+            this.getOrderList();
+      
+        
+        },
+        error: () => {
+          this.toast.error({
+            detail: 'Error Message',
+            summary: 'Error While Deleting ',
+            duration: 4000,
+          });
+        },
       });
     }
   }

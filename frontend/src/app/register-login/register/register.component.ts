@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
             summary: 'User Registered Successfully',
             duration: 4000,
           });
-          console.log("status",res.status)
+
     
             this.registerForm.reset();
             this.router.navigate(['warning']);

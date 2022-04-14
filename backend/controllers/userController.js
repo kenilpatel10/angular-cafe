@@ -98,13 +98,13 @@ exports.registerUser =catchAsyncError(async(req,res,next)=>{
  exports.getAllUserDetails = catchAsyncError(async(req,res,next)=>{
  
      const user = await User.find()
-   setTimeout(() => {
+//    setTimeout(() => {
     res.status(200).json({
         success: true,
         user,
         
     })  
-   }, 1000);
+//    }, 1000);
  
   
  })

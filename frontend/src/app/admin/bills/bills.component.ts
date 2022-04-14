@@ -70,7 +70,7 @@ export class BillsComponent implements OnInit {
     });
   }
   viewBill(id: any){
-  
+  console.log(id)
     this.api.getSingleBill(id).subscribe({
       next: (res) => {
       },
@@ -116,7 +116,7 @@ export class BillsComponent implements OnInit {
     this.api.getBills().subscribe({
       next: (res) => {
         this.bills = res.bill;
-        this.dataSource = new MatTableDataSource(res.bill);
+        this.dataSource = new MatTableDataSource(res.bill.reverse());
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         console.log("soert",this.sort)

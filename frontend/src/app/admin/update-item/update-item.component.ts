@@ -16,32 +16,26 @@ export class UpdateItemComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<UpdateItemComponent>,private router: Router, @Inject(MAT_DIALOG_DATA) public editData: any,private toast: NgToastService,private formBuilder: FormBuilder, private api : ApiService) { }
 
   ngOnInit(): void {
-    console.log("ok",this.editData)
     this.api.getCategories().subscribe((res) => {
       this.categories = res.category;
-      // console.log( this.categories)
     });
     this.itemForm = this.formBuilder.group({
       name:[''],
       category:[''],
       price:[''],
-    
     })
     if (this.editData) {
-
       this.itemForm.controls['name'].setValue(this.editData.name);
       this.itemForm.controls['price'].setValue(this.editData.price);
       this.itemForm.controls['category'].setValue(this.editData.category);
     }
-
-
   }
 updateItem(){
   this.api.updateProduct(this.editData._id, this.itemForm.value).subscribe({
     next: (res) => {
       this.toast.success({
         detail: 'Success Message',
-        summary: 'Issue Updated Successfully',
+        summary: 'Updated Successfully',
         duration: 4000,
       });
       this.itemForm.reset();
@@ -50,7 +44,7 @@ updateItem(){
     error: () => {
       this.toast.error({
         detail: 'Error Message',
-        summary: 'Error While Updating Issue',
+        summary: 'Error While Updating',
         duration: 4000,
       });
     },

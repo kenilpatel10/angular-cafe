@@ -29,14 +29,14 @@ setTimeout(() => {
 
     exports.getBillDetail= catchAsyncError(async (req, res) => {
       const bill= await Bill.findById(req.params.id);
-      
+     
         if (!bill) {
           return res.status(500).json({
             success: false,
             message: 'bill not found',
           });
         }
-       
+    
   res.status(200).json({
     success: true,
     bill,

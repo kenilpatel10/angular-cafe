@@ -13,3 +13,11 @@
   td, th {
     width: 25%;
   }
+  .spinner{
+  
+    width: 100%;
+    height: 100%;
+    margin: 250px;
+    margin-left: 550px;
+      z-index: 1;
+    }

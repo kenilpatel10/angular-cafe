@@ -14,31 +14,19 @@ exports.createTable = catchAsyncError(async (req, res, next) => {
   });
   
 
-  
-  exports.getAllTable = catchAsyncError(async (req, res) => {
-    
-  const table = await Table.find();
-  
-   
-    res.status(200).json({
-      success: true,
-      table,
-    
-  
-    });
-  });
-
+ 
   exports.getAllTable = catchAsyncError(async (req, res) => {
     
     const tables = await Table.find();
     
-     
+    setTimeout(() => {
       res.status(200).json({
         success: true,
         tables,
       
     
       });
+     }, 1000);
     });
     exports.getTable= catchAsyncError(async (req, res) => {
         const table = await Table.findById(req.params.id);

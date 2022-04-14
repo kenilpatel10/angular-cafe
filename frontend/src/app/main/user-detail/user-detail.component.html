@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Add Customer Details</h1>
+
+
+<div mat-dialog-content>  <form [formGroup]="detailForm" align="center">
+
+  <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input formControlName="customerName" matInput>
+  </mat-form-field>
+  
+  <mat-form-field appearance="fill">
+    <mat-label>Phone Number</mat-label>
+    <input formControlName="phone" matInput>
+  </mat-form-field>
+
+  <br>
+    <button (click)="sendOrder()" class="m-4" mat-mini-fab color="primary"  aria-label="Example icon button with a menu icon">
+      <mat-icon>send</mat-icon>
+    </button>
+</form></div>
+<div mat-dialog-actions class="justify-content-end">
+  <button mat-button mat-dialog-close>Close</button>
+</div>

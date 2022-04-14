@@ -3,24 +3,27 @@ import { NgToastService } from 'ng-angular-popup';
 import { ApiService } from 'src/app/services/api.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoaderService } from 'src/app/services/loader.service';
 @Component({
   selector: 'app-main-screen',
   templateUrl: './main-screen.component.html',
   styleUrls: ['./main-screen.component.css']
 })
 export class MainScreenComponent implements OnInit {
-  constructor(private api: ApiService,private formBuilder: FormBuilder,private toast : NgToastService,private router: Router) { }
+  constructor(public loaderService: LoaderService,private api: ApiService,private formBuilder: FormBuilder,private toast : NgToastService,private router: Router) { }
 localItems: any
 tables:any;
   ngOnInit(): void {
    
     this.localItems = localStorage.getItem('order');
-   
+   setTimeout(() => {
     this.api.getTables().subscribe((res)=>{
 
       this.tables= res.tables;
       
     })
+   }, 200);
+ 
   
 
   }

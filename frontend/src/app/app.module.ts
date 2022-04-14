@@ -15,7 +15,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { NgToastModule } from 'ng-angular-popup';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home/home.component';
 import { AboutComponent } from './home/about/about.component';
@@ -38,7 +38,12 @@ import { WarningComponent } from './home/warning/warning.component';
 import { AllItemsComponent } from './admin/all-items/all-items.component';
 import { UpdateItemComponent } from './admin/update-item/update-item.component';
 import {MatDialogModule} from '@angular/material/dialog';
-
+import { UserDetailComponent } from './main/user-detail/user-detail.component';
+import { BillsComponent } from './admin/bills/bills.component';
+import { BillDetailsComponent } from './admin/bill-details/bill-details.component';
+import { MatSortModule } from '@angular/material/sort';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { IntercepterService } from './services/intercepter.service';
 
 
 
@@ -61,6 +66,13 @@ import {MatDialogModule} from '@angular/material/dialog';
     WarningComponent,
     AllItemsComponent,
     UpdateItemComponent,
+    UserDetailComponent,
+    BillsComponent,
+    BillDetailsComponent,
+
+
+
+  
     
   ],
   imports: [
@@ -85,11 +97,15 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatGridListModule,
     MatTableModule,
     MatSlideToggleModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSortModule,
+    MatProgressSpinnerModule
 
     
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: IntercepterService, multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -55,9 +55,10 @@ loginForm!: FormGroup;
             this.router.navigate(['warning'])
           }
           if(res.status === true){
-            localStorage.setItem ('token', res.token);
-            localStorage.setItem ('name', res.name);
-            localStorage.setItem ('id', res.id);
+           localStorage.setItem ('token', res.token);
+           localStorage.setItem ('name', res.name);
+           localStorage.setItem ('role', res.role);
+           localStorage.setItem ('id', res.id);
             this.loginForm.reset();
             if(res.role === 'admin'){
               this.router.navigate(['dashboard'])

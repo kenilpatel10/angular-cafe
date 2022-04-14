@@ -9,8 +9,13 @@ exports.registerUser =catchAsyncError(async(req,res,next)=>{
    
  
      const { name, email, password}= req.body;
-     
- 
+     const userExist= await User.findOne({email});
+ if(userExist){
+    res.status(400).json({
+        message:"User Already Exists"
+    })
+   
+ }
      const user =await User.create({
          name,
          email,
@@ -26,8 +31,10 @@ exports.registerUser =catchAsyncError(async(req,res,next)=>{
           token: generateToken(user._id),
         });
       } else {
-        res.status(400);
-        throw new Error("Invalid Data");
+        res.status(400).json({
+            message:"Invalid Data"
+        })
+        
       }
     });
    
@@ -37,15 +44,21 @@ exports.registerUser =catchAsyncError(async(req,res,next)=>{
 
         const {email,password} = req.body;
             if(!email || !password){
-                return next(new ErrorHandler("please enter email & password",400))
+                return res.status(400).json({
+                    message:"Please enter email and password"
+                })
             }
         const user =await User.findOne({email}).select("+password")
         if(!user){
-            return next(new ErrorHandler("invalid email or password",400) )
+            return res.status(400).json({
+                message:"Invalid Email or Password"
+            })
         }
         const isPasswordMatched = await user.comparePassword(password);
         if(!isPasswordMatched){
-            return next(new ErrorHandler("invalid email or password",401))
+            return res.status(401).json({
+                message:"Invalid Email or Password"
+            })
         }
         res.status(201).json({
             id: user._id,
@@ -85,12 +98,14 @@ exports.registerUser =catchAsyncError(async(req,res,next)=>{
  exports.getAllUserDetails = catchAsyncError(async(req,res,next)=>{
  
      const user = await User.find()
-   
-     res.status(200).json({
-         success: true,
-         user,
-         
-     })
+   setTimeout(() => {
+    res.status(200).json({
+        success: true,
+        user,
+        
+    })  
+   }, 1000);
+ 
   
  })
  exports.getUserDetails = catchAsyncError(async(req,res,next)=>{

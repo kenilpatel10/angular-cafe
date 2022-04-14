@@ -5,12 +5,14 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ApiService } from 'src/app/services/api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
+  dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
     'email',
     'name',
@@ -18,11 +20,12 @@ export class UsersComponent implements OnInit {
     'status',
     'action',
   ];
-  dataSource!: MatTableDataSource<any>;
+
   checked: boolean = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
+    public loaderService: LoaderService,
     private toast: NgToastService,
     private router: Router,
     private api: ApiService
@@ -31,15 +34,21 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.getAllUsers();
   }
-  logOut() {
-    localStorage.clear();
-    this.router.navigate(['']);
-    this.toast.success({
-      detail: 'Success Message',
-      summary: 'Logged Out Successfully',
-      duration: 4000,
-    });
-  }
+  logOut(){
+    if(window.confirm("Are You Sure?? ")){
+      localStorage.removeItem('name');
+      localStorage.removeItem('id');
+      localStorage.removeItem('token');
+      localStorage.removeItem('role')
+        this.router.navigate([''])
+        this.toast.success({
+          detail: 'Success Message',
+          summary: 'Logged Out Successfully',
+          duration: 4000,
+        });
+    }
+      
+          }
   deleteUser(id: any){
     this.api.deleteUsers(id).subscribe({
       next: (res) => {
@@ -66,7 +75,7 @@ export class UsersComponent implements OnInit {
   show: boolean = false;
   changed(data: any) {
     const fd = new FormData();
-    console.log(data.status);
+ 
     if (data.status === true) {
       fd.append('status', 'false');
     }
@@ -84,6 +93,7 @@ export class UsersComponent implements OnInit {
         this.dataSource = new MatTableDataSource(res.user);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+       
       },
       error: () => {
         this.toast.error({

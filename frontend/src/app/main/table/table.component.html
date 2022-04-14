@@ -1,6 +1,7 @@
 <app-nav></app-nav>
 
 <div class="box"> 
+
   <form [formGroup]="listForm" align="center" class="flex justify-content-center">
     <mat-form-field appearance="fill">
       <mat-label>Category</mat-label>
@@ -32,7 +33,8 @@
     <button *ngIf="this.updateOn === true" class="m-4" mat-mini-fab color="primary"  (click)="UpdateToList(OrderList1.id)" aria-label="Example icon button with a menu icon">
       <mat-icon>edit</mat-icon>
     </button>
-    <div class="d-flex justify-content-end">
+
+    <div *ngIf="this.OrderList1.length > 0" class="d-flex justify-content-end">
       <b style="color: aliceblue;">{{this.OrderList1.length}}</b>
     </div>
 
@@ -40,16 +42,22 @@
    
 </div>
 
-
+<mat-spinner class="spinner" *ngIf="!categories"></mat-spinner>
 
 <div class="mat-elevation-z8 example-container m-3">
-  <table  mat-table [dataSource]="dataSource"  matSort>
+  <div  style="color: aliceblue; opacity: 0.7;margin: 100px;" *ngIf="this.OrderList1.length <= 0"class="d-flex justify-content-center">
+  <!-- <mat-icon>add</mat-icon>  <h1>Add Orders </h1> -->
+
+
+  <h4>(No orders please add order)</h4>
+  </div>
+  <table  mat-table [dataSource]="dataSource"  *ngIf="this.OrderList1.length > 0" matSort>
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>  Name </th>
-      <td mat-cell *matCellDef="let i">{{i.item}} </td>
+      <td mat-cell *matCellDef="let i">{{i.item}}<p *ngIf="i.addOns">-{{i.addOns}}</p> </td>
       <td mat-footer-cell *matFooterCellDef> Total </td>
     </ng-container>
-    <ng-container matColumnDef="price">
+    <ng-container matColumnDef="price"> 
       <th mat-header-cell *matHeaderCellDef mat-sort-header>  Price </th>
       <td mat-cell *matCellDef="let i"> {{i.itemPrice * i.qty}}</td>
       <td mat-footer-cell *matFooterCellDef>  </td>
@@ -86,8 +94,8 @@
 
  
 </div>
-<div class="d-flex justify-content-center">
-  <button class="m"mat-raised-button  color="primary"   (click)="sendOrder()" aria-label="Example icon button with a menu icon">
+<div  class="d-flex justify-content-center">
+  <button [disabled]="this.OrderList1.length <= 0"class="m"mat-raised-button  color="primary"   (click)="openDialog()" aria-label="Example icon button with a menu icon">
     <mat-icon>send</mat-icon>
     Send
   </button>

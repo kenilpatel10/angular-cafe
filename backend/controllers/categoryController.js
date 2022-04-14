@@ -18,14 +18,16 @@ exports.createCategory = catchAsyncError(async (req, res, next) => {
   exports.getAllCategory = catchAsyncError(async (req, res) => {
     
   const category = await Category.find();
-  
-   
+  setTimeout(() => {
     res.status(200).json({
       success: true,
       category,
     
   
     });
+  }, 1000);
+   
+ 
   });
 
   exports.deleteCategory = catchAsyncError(async (req, res) => {

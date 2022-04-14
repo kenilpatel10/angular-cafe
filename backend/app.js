@@ -2,6 +2,7 @@ const express = require("express");
 const user= require("./routes/userRoute")
 const category= require("./routes/categoryRoute")
 const product= require("./routes/productRoute")
+const bill =require('./routes/billRoute')
 const table= require("./routes/tableRoute")
 const cookieParser = require("cookie-parser")
 const bodyParser = require("body-parser")
@@ -23,7 +24,7 @@ const port = 4000;
 require("./db/connection")
 
 app.use(express.json())
-
+app.use("/api/c1",bill)
 app.use("/api/c1",user)
 app.use("/api/c1",category)
 app.use("/api/c1",product)

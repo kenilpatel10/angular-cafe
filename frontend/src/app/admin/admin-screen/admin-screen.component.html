@@ -5,8 +5,8 @@
     <img style="height: 100px; margin:-15px;" src="../../../assets/img/logo 1.png" alt="logo">
     <span>KK Cafe & More</span>
     <span class="example-spacer"></span>
-    <button  routerLink="/about" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-      <mat-icon>favorite</mat-icon>
+    <button  routerLink="/main" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>home</mat-icon>
     </button>
     <button (click)="logOut()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
       <mat-icon>logout</mat-icon>
@@ -20,6 +20,7 @@
         <a mat-list-item routerLink="/items" ><mat-icon >list</mat-icon></a>
         <a mat-list-item  routerLink="/users"><mat-icon >person</mat-icon></a>
         <a mat-list-item   routerLink="/add"><mat-icon ></mat-icon>Add</a>
+        <a mat-list-item   routerLink="/bill"><mat-icon>assignment</mat-icon></a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content><div style="height: 88vh;" >

@@ -13,7 +13,7 @@ export class UpdateItemComponent implements OnInit {
   itemForm!: FormGroup;
  
   categories:any;
-  constructor(    private dialogRef: MatDialogRef<UpdateItemComponent>,private router: Router, @Inject(MAT_DIALOG_DATA) public editData: any,private toast: NgToastService,private formBuilder: FormBuilder, private api : ApiService) { }
+  constructor(private dialogRef: MatDialogRef<UpdateItemComponent>,private router: Router, @Inject(MAT_DIALOG_DATA) public editData: any,private toast: NgToastService,private formBuilder: FormBuilder, private api : ApiService) { }
 
   ngOnInit(): void {
     console.log("ok",this.editData)

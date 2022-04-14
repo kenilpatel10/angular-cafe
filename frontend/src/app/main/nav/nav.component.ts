@@ -10,15 +10,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-
+name : any = localStorage.getItem('name')
   constructor(private api: ApiService,private formBuilder: FormBuilder,private toast : NgToastService,private router: Router) { }
 
   ngOnInit(): void {
+
   }
 
   logOut(){
-
-    localStorage.clear();
+    if (window.confirm('Are You Sure ??')) {
+      localStorage.removeItem('name');
+      localStorage.removeItem('id');
+      localStorage.removeItem('token');
+      localStorage.removeItem('role')
     this.router.navigate([''])
     this.toast.success({
       detail: 'Success Message',
@@ -26,4 +30,5 @@ export class NavComponent implements OnInit {
       duration: 4000,
     });
       }
+    }
 }

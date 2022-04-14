@@ -7,11 +7,29 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
+config: any =sessionStorage.getItem('token')
 
   constructor(private http: HttpClient) {
 
    }
-  
+   isLoggedIn(){
+     return !!localStorage.getItem('token')
+   }
+   postBill(data: any){
+    return this.http.post<any>('http://localhost:4000/api/c1/createBill', data).pipe(catchError(this.errorHandler));
+  }
+  getBills(){
+    return this.http.get<any>('http://localhost:4000/api/c1/admin/bill');
+  }
+  updateBill(id: any, data: any){
+    return this.http.put<any>(`http://localhost:4000/api/c1//admin/bill/${id}`, data);
+  }
+  deleteBill(id:any){
+    return this.http.delete<any>(`http://localhost:4000/api/c1/admin/bill/${id}`);
+  }
+  getSingleBill(id:any){
+    return this.http.get<any>(`http://localhost:4000/api/c1/admin/bill/${id}`);
+  }
   postUser(data: any){
     return this.http.post<any>('http://localhost:4000/api/c1/register', data).pipe(catchError(this.errorHandler));
   }
@@ -40,7 +58,10 @@ export class ApiService {
     return this.http.post<any>('http://localhost:4000/api/c1/admin/createTable', data).pipe(catchError(this.errorHandler));
   }
   getTables(){
-    return this.http.get<any>('http://localhost:4000/api/c1/tables');
+   
+      return this.http.get<any>('http://localhost:4000/api/c1/tables');
+  
+  
   }
   deleteTable(id:any){
     return this.http.delete<any>(`http://localhost:4000/api/c1/table/${id}`);
@@ -51,9 +72,8 @@ export class ApiService {
   deleteCategory(id:any){
     return this.http.delete<any>(`http://localhost:4000/api/c1/category/${id}`);
   }
-
- 
   getUsers(){
+
     return this.http.get<any>('http://localhost:4000/api/c1/admin/users');
   }
   updateUser(id: any , data: any){

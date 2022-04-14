@@ -8,6 +8,7 @@ import { MatSort } from '@angular/material/sort';
 
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateItemComponent } from '../update-item/update-item.component';
+import { LoaderService } from 'src/app/services/loader.service';
 @Component({
   selector: 'app-all-items',
   templateUrl: './all-items.component.html',
@@ -23,24 +24,31 @@ export class AllItemsComponent implements OnInit {
     'status',
     'action',
   ];
-  displayedCategory: string[] = ['id', 'name', 'action'];
+  displayedCategory: string[] = ['_id', 'name', 'action'];
   displayedTables: string[] = ['id', 'name', 'action'];
   dataSource!: MatTableDataSource<any>;
   dataCategory!: MatTableDataSource<any>;
   dataTable!: MatTableDataSource<any>;
   checked: boolean = false;
+  allBills:any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     public dialog: MatDialog,
     private api: ApiService,
     private toast: NgToastService,
-    private router: Router
+    private router: Router,
+    public loaderService: LoaderService
   ) {}
 
   ngOnInit(): void {
+   
+
+      this.getAllProducts();
+   
+   
     this.getAllCategories();
-    this.getAllProducts();
+   
     this.getAllTables();
   }
   AllItems: any;
@@ -51,22 +59,25 @@ export class AllItemsComponent implements OnInit {
 
   //get all items
   getAllProducts() {
-    this.api.getProducts().subscribe({
-      next: (res) => {
-        this.AllItems = res.products;
- 
-        this.dataSource = new MatTableDataSource(res.products);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      },
-      error: () => {
-        this.toast.error({
-          detail: 'Error Message',
-          summary: 'Error While Fetching Data',
-          duration: 4000,
-        });
-      },
-    });
+   
+      this.api.getProducts().subscribe({
+        next: (res) => {
+          this.AllItems = res.products;
+   
+          this.dataSource = new MatTableDataSource(res.products);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        },
+        error: () => {
+          this.toast.error({
+            detail: 'Error Message',
+            summary: 'Error While Fetching Data',
+            duration: 4000,
+          });
+        },
+      });  
+   
+  
   }
   //delete items
   deleteProduct(id: any) {
@@ -203,9 +214,9 @@ export class AllItemsComponent implements OnInit {
     this.api.getCategories().subscribe({
       next: (res) => {
         this.AllCategories = res.category;
-
         this.dataCategory = new MatTableDataSource(res.category);
         this.dataCategory.sort = this.sort;
+        console.log("cat sort",this.sort)
       },
       error: () => {
         this.toast.error({
@@ -217,13 +228,19 @@ export class AllItemsComponent implements OnInit {
     });
   }
   //Log out
-  logOut() {
-    localStorage.clear();
-    this.router.navigate(['']);
-    this.toast.success({
-      detail: 'Success Message',
-      summary: 'Logged Out Successfully',
-      duration: 4000,
-    });
-  }
+  logOut(){
+    if(window.confirm("Are You Sure?? ")){
+      localStorage.removeItem('name');
+      localStorage.removeItem('id');
+      localStorage.removeItem('token');
+      localStorage.removeItem('role')
+        this.router.navigate([''])
+        this.toast.success({
+          detail: 'Success Message',
+          summary: 'Logged Out Successfully',
+          duration: 4000,
+        });
+    }
+      
+          }
 }

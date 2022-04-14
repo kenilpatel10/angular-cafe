@@ -1,29 +1,22 @@
-.example-headers-align .mat-expansion-panel-header-title,
-.example-headers-align .mat-expansion-panel-header-description {
-  flex-basis: 0;
-}
 
-.example-headers-align .mat-expansion-panel-header-description {
-  justify-content: space-between;
-  align-items: center;
-}
-
-.example-headers-align .mat-form-field + .mat-form-field {
-  margin-left: 8px;
-}
 .example-card {
   width: 350px;
   height: 200px;
-  padding: 10px;
+  /* padding: 10px; */
   border-radius: 10px;
-  margin: 8px;
+  margin: 10px;
   text-align: center;
-  outline: solid 1px #fc0061;
+  outline: solid 1px hsl(332, 96%, 48%);
   outline-offset:-10px; 
 
 }
-/* .innerCard1{
-  border: 1px solid red;
-  padding: 70px;
-  border-radius: 10px;
-} */
+.card{
+  display: flex;
+  flex-direction: row;
+  margin:20px;
+  justify-content: center;
+}
+.spinner{
+  margin: 230px;
+  margin-left: 45%;
+}

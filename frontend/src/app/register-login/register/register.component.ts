@@ -53,11 +53,12 @@ export class RegisterComponent implements OnInit {
     
             this.registerForm.reset();
             this.router.navigate(['warning']);
-            console.log("if",res.status)
+      
          
         
         },
         error: (error: any) => {
+          console.log("error",error.message)
           this.toast.error({
             detail: 'Error Message',
             summary: error,

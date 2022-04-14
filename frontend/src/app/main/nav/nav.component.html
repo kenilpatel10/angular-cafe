@@ -1,8 +1,16 @@
 <mat-toolbar color="primary">
-    <img style="height: 100px; margin:-15px;" src="../../../assets/img/logo 1.png" alt="logo">
+  <a  routerLink="/main"> <img  style="height: 100px; margin:-15px;" src="../../../assets/img/logo 1.png" alt="logo"></a>
+   
     <span>KK Cafe & More</span>
     <span class="example-spacer"></span>
-    <button  routerLink="/main" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+
+    <h3 class="name">Welcome {{this.name}}</h3>
+   
+    <button *ngIf="this.name === 'admin'" routerLink="/dashboard" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>dashboard</mat-icon>
+    </button>
+
+    <button *ngIf="this.name !== 'admin'"  routerLink="/main" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
       <mat-icon>home</mat-icon>
     </button>
     <button (click)="logOut()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">

@@ -13,14 +13,19 @@ export class AdminScreenComponent implements OnInit {
   ngOnInit(): void {
   }
   logOut(){
-
-    localStorage.clear();
+if(window.confirm("Are You Sure?? ")){
+  localStorage.removeItem('name');
+  localStorage.removeItem('id');
+  localStorage.removeItem('token');
+  localStorage.removeItem('role')
     this.router.navigate([''])
     this.toast.success({
       detail: 'Success Message',
       summary: 'Logged Out Successfully',
       duration: 4000,
     });
+}
+  
       }
 
 }

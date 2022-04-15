@@ -17,17 +17,18 @@ export class UserDetailComponent implements OnInit {
   constructor( private dialogRef: MatDialogRef<UserDetailComponent>,private router: Router, private toast: NgToastService,private formBuilder: FormBuilder, private api : ApiService) { }
 
   ngOnInit(): void {
+    console.log("type",typeof(this.OrderList1))
     this.api.getOrders().subscribe({
       next: (res) => {
-       
         this.OrderList= res.orders
+        console.log("res",typeof(res.orders))
         this.OrderList1 = this.OrderList.filter((i: any) => {
           return i.tableName == localStorage.getItem('tableName');
         });
         console.log("get order", this.OrderList1)
       }
     })
-  
+  // let data= JSON.stringify(this.OrderList1)
     this.detailForm = this.formBuilder.group({
       customerName:['',Validators.required],
       phone:['',[Validators.required ,Validators.maxLength(10),Validators.minLength(10)]],
@@ -58,11 +59,14 @@ export class UserDetailComponent implements OnInit {
 }
   sendOrder(){
     if(this.detailForm.valid){
+      this.OrderList1.forEach((element: any) => {
+        this.detailForm.value.orderItems.push(element)
+      });
       if(window.confirm("Make Sure That You Have Completed Your Order")){
-        console.log("get order12", this.OrderList1)
-       
+        console.log("get order12",this.OrderList1)
+       console.log("form",this.detailForm.value)
         // const fd = new FormData;
-        // fd.append('orderItems',JSON.stringify(this.OrderList1))
+        // fd.append('orderItems',this.OrderList1)
         // fd.append('customerName',this.detailForm.value.customerName)
         // fd.append('phone',this.detailForm.value.phone)
         // fd.append('totalPrice',this.detailForm.value.totalPrice)
@@ -74,7 +78,7 @@ export class UserDetailComponent implements OnInit {
        })
        this.detailForm.reset();
        this.dialogRef.close();
-       this.clearList();
+      //  this.clearList();
        this.router.navigate(['main'])
       }
   

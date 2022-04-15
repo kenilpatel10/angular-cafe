@@ -208,7 +208,6 @@ exports.registerUser =catchAsyncError(async(req,res,next)=>{
  
     if(!user){
         return next(new ErrorHandler(`user doen not exist with id: ${req.params.id}`))
-   
      }
      await user.remove();
      res.status(200).json({

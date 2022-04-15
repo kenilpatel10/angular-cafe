@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
-const orderSchema = new mongoose.Schema({
+const orderSchema = new mongoose.Schema(
+{
   item: { type: String, required: true },
   qty: { type: Number, required: true },
   category: { type: String, required: true },
@@ -9,9 +10,10 @@ const orderSchema = new mongoose.Schema({
   tableName: { type: String, required: true },
   addOns: { type: String },
   createdAt: {
-    type: Date,
+  type: Date,
   },
-});
+}
+);
 
 const Order = mongoose.model("Order", orderSchema);
 

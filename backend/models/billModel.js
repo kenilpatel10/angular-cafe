@@ -15,7 +15,7 @@ const billSchema = new mongoose.Schema(
     phone:{
       type: Number, required: true
     },
-    orderItems: [
+    orderItems:[
       {
         item: { type: String, required: true },
         qty: { type: Number, required: true },

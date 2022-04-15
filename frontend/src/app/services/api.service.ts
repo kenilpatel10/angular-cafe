@@ -97,6 +97,9 @@ api:any="http://localhost:4000/"
   deleteOrder(id:any){
     return this.http.delete<any>(`http://localhost:4000/api/c1/admin/order/${id}`);
   }
+  deleteAllOrders(id:any){
+    return this.http.delete<any>(`http://localhost:4000/api/c1/admin/orders/${id}`);
+  }
   errorHandler(error: HttpErrorResponse): Observable<any>{
     return throwError(error.error.message || "SERVER ERROR")
   }

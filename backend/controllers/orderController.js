@@ -77,3 +77,21 @@ setTimeout(() => {
         message: "deleted successfully",
       });
       });
+      exports.deleteAllOrder = catchAsyncError(async (req, res) => {
+    
+        const order = await Order.findOne(req.body.tableId).remove().exec();
+       
+          if (!order) {
+            return res.status(500).json({
+              success: false,
+              message: "order not found",
+            });
+          }
+          // User.remove()
+        // await order.remove().exec();
+        res.status(200).json({
+          success: true,
+          message: "deleted successfully",
+          order
+        });
+        });

@@ -43,8 +43,11 @@
     <button *ngIf="this.updateOn === false" class="m-4" mat-mini-fab color="primary" (click)="AddToList()" aria-label="Example icon button with a menu icon">
       <mat-icon>add</mat-icon>
     </button>
-    <button *ngIf="this.updateOn === true" class="m-4" mat-mini-fab color="primary"  (click)="UpdateToList(this.listForm.value._id)" aria-label="Example icon button with a menu icon">
+    <button *ngIf="this.updateOn === true" class="m-4" mat-mini-fab color="primary"  (click)="UpdateToList()" aria-label="Example icon button with a menu icon">
       <mat-icon>edit</mat-icon>
+    </button>
+    <button  class="m-4" mat-mini-fab color="primary"  (click)="clearList()" aria-label="Example icon button with a menu icon">
+      <mat-icon>delete</mat-icon>
     </button>
 
     <div *ngIf="this.OrderList1.length > 0" class="d-flex justify-content-end">
